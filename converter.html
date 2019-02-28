@@ -1,0 +1,102 @@
+<html>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<style>
+		input {
+		    height: 28;
+		    border-radius: 5px;
+		    padding: 5px;
+		}
+		.select-box {
+			width: 120;
+		    height: 25;
+		    border-radius: 7px;
+		    padding: 2px;
+		}
+		
+	</style>
+	<body>
+		<div ng-app="myApp" ng-controller="myCtrl">
+			<h1 style="text-align: center; font-family: serif; font-style: italic;">
+				Converter
+			</h1>
+			<form>
+				Select a converter:
+				<select ng-model="converter" class="select-box">
+		    		<option value="hexadecimal">Hexadecimal
+		    		<option value="octadecimal">Octadecimal
+		    		<option value="binary">Binary
+		  		</select>
+			</form>
+
+			<div ng-switch="converter">
+				<div ng-switch-when="hexadecimal">
+			    	Enter the interger : 
+					<input type="number" ng-model="intHex" id="hexadecimal" ng-change="onChangeHexa()" placeholder="Enter the interger">
+					<p>{{intHex}}</p>
+
+					<h1>
+						{{convertHex}}
+					</h1>
+			  	</div>
+			  	<div ng-switch-when="octadecimal">
+			    	Enter the interger : 
+					<input type="number" ng-model="intOct" id="octadecimal" ng-change="onChangeOcta()" placeholder="Enter the interger">
+					<h1>
+						{{convertOct}}
+					</h1>
+			  	</div>
+			  	<div ng-switch-when="binary">
+			    	Enter the interger : 
+					<input type="number" ng-model="intBin" id="binary" ng-change="onChangeBinary()" placeholder="Enter the interger">
+					<h1>
+						{{convertBin}}
+					</h1>
+			  	</div>
+			</div>
+
+		</div>
+
+		<script>
+			var app = angular.module('myApp', []);
+
+			/*app.service('hexafy', function() {
+			    this.myFunc = function (x) {
+			        return x.toString(16);
+			    }
+			});
+			app.service('octafy', function() {
+			    this.myFunc = function (x) {
+			        return x.toString(8);
+			    }
+			});
+			app.service('binafy', function() {
+			    this.myFunc = function (x) {
+			        return x.toString(2);
+			    }
+			});*/
+			
+			app.controller('myCtrl', function($scope) {
+            	$scope.intHex = 0;
+            	$scope.intOct = 0;
+            	$scope.intBin = 0;
+            	
+                $scope.onChangeHexa = function() {
+                	var x = document.getElementById("hexadecimal").value;
+                	var y = parseInt(x);
+                	$scope.convertHex = y.toString(16);
+                }
+                $scope.onChangeOcta = function() {
+                	var x = document.getElementById("octadecimal").value;
+                	var y = parseInt(x);
+                	$scope.convertOct = y.toString(8);
+                }
+                $scope.onChangeBinary = function() {
+                	var x = document.getElementById("binary").value;
+                	var y = parseInt(x);
+                	$scope.convertBin = y.toString(2);
+                }
+			});
+		</script>
+
+	</body>
+</html>
